@@ -1,5 +1,7 @@
 # Data-driven thresholds for optimal summary of wearable device data
-A Python tool implementing the methods proposed in "**Beyond fixed thresholds: optimizing summaries of wearable device data using loss-based methods**" by Junyoung Park, Neo Kok, and Irina Gaynanova. 
+A Python tool for identifying optimal, data-driven thresholds for summarizing wearable device data into Time-in-Range (TIR) proportions, which offers interpretable insights from high-frequency measurements. Two types of threshold optimality are considered: one tailored for data from a single population, and another preserves pairwise distribution distances. 
+
+The detailed methods are described in the paper "**Beyond fixed thresholds: optimizing summaries of wearable device data via piecewise linearization of quantile functions**" by Junyoung Park, Neo Kok, and Irina Gaynanova. 
 
 ## Dependencies
 `numpy`, `pandas`, and `scipy >= 1.12.0`.
