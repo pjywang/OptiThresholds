@@ -4,8 +4,8 @@ library(scales)
 library(patchwork)
 
 # Read data
-nondiabetic_data = read_csv("csv_data/shah2019_filtered.csv")
-diabetic_data = read_csv("csv_data/brown2019_filtered.csv")
+nondiabetic_data = read_csv("data/shah2019_filtered.csv")
+diabetic_data = read_csv("data/brown2019_filtered.csv")
 
 # Ensure data falls within (39, 401)
 diabetic_data = diabetic_data %>%

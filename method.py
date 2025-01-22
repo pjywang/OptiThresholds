@@ -8,7 +8,7 @@ from scipy.optimize import LinearConstraint, differential_evolution
 class Distribution:
     """
     Class representing the distributional representations wearable device data (e.g., CGM data) and their amalgamated histograms. 
-    The class basically stores the distributional data in the form of histograms and quantiles.
+    The class stores the distributional data in the form of histograms and quantiles.
     """
 
     def __init__(self, data, ran=None, M=200):
