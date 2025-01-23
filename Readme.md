@@ -1,5 +1,5 @@
 # Data-driven thresholds for optimal summary of wearable device data
-A Python tool for identifying optimal, data-driven thresholds for summarizing wearable device data into Time-in-Range (TIR) proportions, which offers interpretable insights from high-frequency measurements. Two types of threshold optimality are considered: one well-suited for data from a single population, and another well-suited to mixed-population scenario. 
+A Python tool for identifying optimal, data-driven thresholds for summarizing wearable device data into Time-in-Range (TIR) proportions, which provides interpretable insights from high-frequency measurements. Two types of threshold optimality are considered: one well-suited for data from a single population, and another tailored to mixed-population scenarios. 
 
 The detailed methods are described in the paper:
 - [Beyond fixed thresholds: optimizing summaries of wearable device data via piecewise linearization of quantile functions.](https://arxiv.org/abs/2501.11777) by Junyoung Park, Neo Kok, and Irina Gaynanova (arXiv:2501.11777).
@@ -12,7 +12,7 @@ Please feel free to contact junyoup@umich.edu if you have any questions regardin
 ## How to use
 The code applies to any type of univariate distributional data formed by empirical measurements, including wearable devices data like accelerometers or CGMs. Overall implementation steps are:
 
-1. Import `method.py`
+1. Import `method.py`.
 2. Process data into a list of sublists in which each individual's empirical measurements are collected, forming individual empirical distributions.
 3. Create a Python class `Distribution` based on the processed data.
 4. Apply one of the proposed algorithms: DE, SA, and SS.
@@ -25,15 +25,17 @@ Suppose a CGM data is stored in `data.csv` with columns `id` (subject ID), `gl` 
 Then, use the following code to create a `Distribution` class:
 
 ```Python
+# Step 1. Import method.py, which includes class Distribution
+from method import * 
 import pandas as pd
-from method import * # includes class Distribution
 
 data = pd.read_csv("data.csv")
 
-# Group empirical measurements by each individual
+# Step 2. Group empirical measurements by each individual
 grouped_data = data.groupby('id').agg({'gl': list}).reset_index()
 
-data_class = Distribution(grouped_data["gl"], ran=(40, 400))
+# Step 3. Create a Distribution class instance
+data_class = Distribution(grouped_data['gl'], ran=(40, 400))
 ```
 Here, `ran=(40, 400)` specifies the measurement range of a typical CGM device, which should be specified in a data-dependent manner.
 
@@ -43,7 +45,7 @@ Using [Awesome-CGM](https://github.com/IrinaStatsLab/Awesome-CGM) or [GlucoBench
 ### Data-driven thresholds using Distribution class
 Once the data is converted to a `Distribution` class, the proposed algorithms DE, SA, and SS can apply by using the `run_de`, `agglomerative_discrete`, and `divisive_discrete` functions, respectively. DE (`run_de`) is recommended due to its effective and efficient performance demonstrated in our paper. 
 
-**Example code**:
+**Full example code**:
 ```Python
 import pandas as pd
 from method import * # includes class Distribution, run_de
@@ -60,7 +62,7 @@ K = 4
 # "Loss2" preserves pairwise distances (well-suited for a mixed-population data)
 loss = "Loss1"
 
-# DE
+# Apply DE to data_class
 best_cutoffs, min_loss = run_de(data_class, K=K, loss=loss)
 ```
 `best_cutoffs` returns the optimal thresholds for the input data, and `min_loss` shows its achieved loss value.
